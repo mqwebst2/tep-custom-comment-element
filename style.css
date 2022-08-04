@@ -1,25 +1,33 @@
 body {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  padding: 0;
+  background-color: #80808020;
 }
 
-.alert {
-  text-align: center;
-  max-wdith: 300px;
-  min-height: 20px;
-  margin-top: 20px;
+#app {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: sticky;
+  top: 0;
+  width: 50vw;
+  height: 100%;
+  padding: 4%;
 }
 
 #output {
-  border: solid 2px black;
-  max-width: 300px;
-  min-height: 50px;
-  margin-top: 20px;
+  display: flex;
+  flex-direction: column-reverse;
+  width: 50vw;
+  align-items: center;
+  padding: 4%;
 }
 
-.squares {
-  border: solid 4px black;
-  width: 150px;
-  height: 50px;
-  margin: 20px auto;
+.comment-response {
+  border: solid 2px #1670ba;
+  border-radius: 8px;
+  margin: 0 auto 4% auto;
+  padding: 4%;
+  width: 50%;
 }

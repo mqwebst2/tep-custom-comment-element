@@ -20,7 +20,7 @@
 class CommentResponse extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
-      Name: ${nameField.value}
+      Name: ${nameField.value}<br /><br />
       Email: ${emailField.value}<br /><br />
       Comment: ${commentField.value}<br /><br />
     `;
@@ -38,11 +38,12 @@ const commentField = document.getElementById("comment");
 const approvalCheckbox = document.getElementById("checkbox");
 
 var numberOfSubmissions = 0;
+var newSubmission;
 
-form.addEventListener("click", (event) => {
+form.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  let newSubmission = "";
+  newSubmission = "";
 
   numberOfSubmissions += 1;
   console.log(numberOfSubmissions);

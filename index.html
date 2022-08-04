@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="stylesheet" href="/style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Custom Comment Component</title>
   </head>
@@ -10,10 +11,10 @@
     <div id="app">
       <form id="form" name="form">
         <label for="name">Name: </label>
-        <input type="text" id="name" name="name" required />
+        <input type="text" id="name" name="name" required /><br /><br />
         <label for="email">Email: </label>
         <input type="text" id="email" name="email" required /><br /><br />
-        <label for="comment">Comment: </label>
+        <label for="comment">Comment: </label><br />
         <textarea
           id="comment"
           name="comment"
@@ -24,15 +25,14 @@
         ><br /><br />
         <input type="checkbox" id="checkbox" name="checkbox" />
         <label for="checkbox"
-          >Checking this box agrees to submit/post this comment.</label
+          >Checking this box agrees to submit/post this comment to the
+          page.</label
         ><br /><br />
         <input type="submit" id="submit-btn" value="Submit" />
       </form>
     </div>
 
-    <div id="output">
-      <div class="alert"></div>
-    </div>
+    <div id="output"></div>
     <script type="module" src="/main.js"></script>
   </body>
 </html>
