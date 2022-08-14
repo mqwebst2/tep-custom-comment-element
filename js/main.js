@@ -1,3 +1,7 @@
+import store from "./store/index.js";
+
+import List from "./components/comment.js";
+
 // Custom Comment Component Template
 // class CommentComponent extends HTMLElement {
 //   connectedCallback() {
@@ -38,12 +42,10 @@ const commentField = document.getElementById("comment");
 const approvalCheckbox = document.getElementById("checkbox");
 
 var numberOfSubmissions = 0;
-var newSubmission;
+var newSubmission = `<comment-response class="comment-response"></comment-response>`;
 
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
-
-  newSubmission = "";
+form.addEventListener("submit", (evt) => {
+  evt.preventDefault();
 
   numberOfSubmissions += 1;
   console.log(numberOfSubmissions);
@@ -53,11 +55,10 @@ form.addEventListener("submit", (event) => {
       "Please check this box if you would like for your comment to be submitted to this page."
     );
   } else {
-    Array(numberOfSubmissions)
-      .fill(null)
-      .forEach(() => {
-        newSubmission += `<comment-response class="comment-response"></comment-response>`;
-      });
-    output.innerHTML = newSubmission;
+    store.dispatch("addItem", newSubmission);
   }
 });
+
+const listInstance = new List();
+
+listInstance.render();
