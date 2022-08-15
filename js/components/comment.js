@@ -22,19 +22,17 @@ export default class List extends Component {
         ${store.state.items
           .map((item) => {
             return `
-            <li>${item}<button class="comment-del" aria-label="Delete this item">X</button></li>
+            <li>${item}<button class="comment-del" aria-label="Delete this item">x</button></li>
           `;
           })
           .join("")}
       </ul>
     `;
 
-    self.element
-      .getElementsByClassName("comment-del")
-      .forEach((button, index) => {
-        button.addEventListener("click", () => {
-          store.dispatch("clearItem", { index });
-        });
+    self.element.querySelectorAll("button").forEach((button, index) => {
+      button.addEventListener("click", () => {
+        store.dispatch("clearItem", { index });
       });
+    });
   }
 }

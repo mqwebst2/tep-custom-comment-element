@@ -6,7 +6,7 @@ export default class Store {
 
     self.actions = {};
     self.mutations = {};
-    // self.state = {};
+    self.state = {};
     self.status = "resting";
 
     self.events = new PubSub();
