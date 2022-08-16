@@ -1,33 +1,18 @@
 import store from "./store/index.js";
-
 import List from "./components/comment.js";
+import CommentResponse from "./components/commentResponse.js";
 
-class CommentResponse extends HTMLElement {
-  connectedCallback() {
-    const formData = new FormData(form);
+const form = document.querySelector("#form");
+const output = document.getElementById("ouput");
 
-    let input = [];
-
-    for (const value of formData.values()) {
-      input.push(value);
-    }
-
-    this.innerHTML = `<div>
-      Name: ${input[0]}<br />
-      Email: ${input[1]}<br />
-      Comment: ${input[2]}
-    </div>`;
-  }
-}
-
-customElements.define("comment-response", CommentResponse);
-
-const form = document.getElementById("form");
+const nameField = form.querySelector("#name");
+const emailField = document.getElementById("email");
+const commentField = document.getElementById("comment");
 
 const approvalCheckbox = document.getElementById("checkbox");
 
 var numberOfSubmissions = 0;
-let newSubmission = `<comment-response class="comment-response"></comment-response>`;
+let newSubmission = `<comment-response></comment-response>`;
 
 form.addEventListener("submit", (evt) => {
   evt.preventDefault();
@@ -41,6 +26,9 @@ form.addEventListener("submit", (evt) => {
     );
   } else {
     store.dispatch("addItem", newSubmission);
+    nameField.value = "";
+    emailField.value = "";
+    commentField.value = "";
   }
 });
 
