@@ -22,7 +22,7 @@ export default class List extends Component {
         ${store.state.items
           .map((item) => {
             return `
-            <li>${item}<button class="comment-del" aria-label="Delete this item">x</button></li>
+            <li class="comment-response"><button class="comment-del" aria-label="Delete this item">x</button>${item}</li>
           `;
           })
           .join("")}

@@ -15,11 +15,13 @@ export default class CommentResponse extends HTMLElement {
     console.log(input);
 
     return `
-    Name: ${input[0]}<br />
-    Email: ${input[1]}<br />
-    Comment: ${input[2]}<br />
-    Date: ${newDate}
-  `;
+      <div class="comment-block">
+        <p><span>Name:</span> ${input[0]}</p>
+        <p><span>Email:</span> ${input[1]}</p>
+        <p><span>Comment:</span> ${input[2]}</p>
+        <p><span>Date:</span> ${newDate}</p>
+      </div>
+    `;
   }
 }
 

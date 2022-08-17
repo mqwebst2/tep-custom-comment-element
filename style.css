@@ -1,4 +1,4 @@
-/* body {
+body {
   display: flex;
   flex-direction: row;
   padding: 0;
@@ -18,16 +18,38 @@
 
 #output {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   width: 50vw;
   align-items: center;
   padding: 4%;
+  line-height: 1.6em;
+}
+
+.comment-items {
+  list-style-type: none;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column-reverse;
+  row-gap: 20px;
+  position: relative;
+  height: 100%;
 }
 
 .comment-response {
+  position: relative;
+  width: 360px;
   border: solid 2px #1670ba;
-  border-radius: 8px;
-  margin: 0 auto 4% auto;
-  padding: 4%;
-  width: 50%;
-} */
+  border-radius: 6px;
+  padding: 16px 32px;
+}
+
+.comment-del {
+  position: absolute;
+  top: 4px;
+  right: 8px;
+  background-color: transparent;
+  border: none;
+  color: red;
+  font-size: 20px;
+  cursor: pointer;
+}
