@@ -49,3 +49,10 @@ export class Store {
     return this.state[key];
   }
 }
+
+export const store = new Store({
+  name: "",
+  email: "",
+  comment: "",
+  date: "",
+});
