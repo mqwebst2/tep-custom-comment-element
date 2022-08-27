@@ -1,3 +1,4 @@
+/* eslint-disable no-prototype-builtins */
 import PubSub from "../lib/pubsub.js";
 
 export default class Store {
