@@ -4,15 +4,18 @@ export class Store {
   constructor(init = {}) {
     const self = this;
     this.subscribers = [];
+    this.newComment;
 
     database.then(async (db) => {
       this.db = db;
 
-      const comments = await db.get("comment-store", "comments");
+      const comments = await db.getAll("comments");
       console.log(comments);
 
-      if (comments) {
-        this.set("comments", comments);
+      if (comments.length !== 0) {
+        this.newComment = comments;
+
+        console.log(this.newComment);
       }
     });
 
@@ -21,7 +24,7 @@ export class Store {
         state[key] = value;
 
         if (self.db) {
-          await self.db.put("comment-store", value, "comments");
+          // await self.db.put("comments", this.newComment);
         }
 
         self.subscribers.forEach((subscriber) => {
@@ -48,11 +51,20 @@ export class Store {
   get(key) {
     return this.state[key];
   }
+
+  addComment(name, email, comment, date) {
+    this.newComment = [];
+    console.log(this.newComment);
+
+    this.newComment.push(name, email, comment, date);
+    console.log(this.newComment);
+
+    database.then(async (db) => {
+      this.db = db;
+
+      await db.put("comments", this.newComment);
+    });
+  }
 }
 
-export const store = new Store({
-  name: "",
-  email: "",
-  comment: "",
-  date: "",
-});
+export const store = new Store();
