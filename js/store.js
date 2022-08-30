@@ -4,18 +4,22 @@ export class Store {
   constructor(init = {}) {
     const self = this;
     this.subscribers = [];
-    this.newComment;
+    this.commentList = [];
 
     database.then(async (db) => {
       this.db = db;
 
       const comments = await db.getAll("comments");
-      console.log(comments);
+      console.log(this.commentItem);
 
-      if (comments.length !== 0) {
-        this.newComment = comments;
-
-        console.log(this.newComment);
+      if (comments) {
+        // console.log(this.newComment);
+        for (let i = 1; i <= comments.length; i++) {
+          let commentItem = await db.get("comments", i);
+          this.commentList.push(commentItem);
+        }
+        console.log(this.commentList);
+        console.log(this.commentItem);
       }
     });
 
@@ -53,18 +57,14 @@ export class Store {
   }
 
   addComment(name, email, comment, date) {
-    this.newComment = [];
-    console.log(this.newComment);
-
-    this.newComment.push(name, email, comment, date);
-    console.log(this.newComment);
+    this.commentItem = [];
 
     database.then(async (db) => {
       this.db = db;
 
-      await db.put("comments", this.newComment);
+      await db.put("comments", this.commentItem);
     });
   }
 }
 
-export const store = new Store();
+export const store = new Store({ commentItem: [] });

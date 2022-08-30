@@ -1,3 +1,4 @@
+// import Component from "./component.js";
 import "./components/comment.js";
 
 import { store } from "./store.js";
@@ -27,3 +28,9 @@ document.addEventListener("DOMContentLoaded", () => {
     checkbox.checked = false;
   });
 });
+
+// const output = document.querySelector("#output");
+
+// const list = new Component();
+
+// list.render(output);
