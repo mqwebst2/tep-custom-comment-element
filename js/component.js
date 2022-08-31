@@ -1,14 +1,30 @@
+import { database } from "./db";
 import { store } from "./store";
 
 export default class Component {
   constructor() {}
 
   render(element) {
-    console.log(store.newComment);
-    if (!store.newComment) {
+    // console.log("rendering");
+    // console.log("before", store.commentItem);
+    if (!store.commentItem) {
       element.innerHTML = `<p class="no-items">No comments have been left yet :(</p>`;
     }
-    console.log(store.newComment);
+    const commentList = database.then(async (db) => {
+      this.db = db;
+
+      const comments = await db.getAll("comments");
+
+      return comments;
+    });
+
+    const printComment = () => {
+      commentList.then((a) => {
+        console.log(a);
+      });
+    };
+
+    printComment();
     // element.innerHTML = `
     // <ul class="comment-items">
     //   ${store.state.newComment

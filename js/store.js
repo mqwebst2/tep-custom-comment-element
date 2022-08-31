@@ -10,16 +10,20 @@ export class Store {
       this.db = db;
 
       const comments = await db.getAll("comments");
-      console.log(this.commentItem);
+
+      // console.log("comments", comments);
+      // console.log(this.commentItem);
 
       if (comments) {
-        // console.log(this.newComment);
+        let commentItem;
+
         for (let i = 1; i <= comments.length; i++) {
-          let commentItem = await db.get("comments", i);
+          commentItem = await db.get("comments", i);
           this.commentList.push(commentItem);
         }
         console.log(this.commentList);
         console.log(this.commentItem);
+        console.log(commentItem);
       }
     });
 
@@ -59,11 +63,18 @@ export class Store {
   addComment(name, email, comment, date) {
     this.commentItem = [];
 
+    this.commentItem.push(name);
+    this.commentItem.push(email);
+    this.commentItem.push(comment);
+    this.commentItem.push(date);
+
     database.then(async (db) => {
       this.db = db;
 
       await db.put("comments", this.commentItem);
     });
+
+    console.log(this.commentItem);
   }
 }
 
