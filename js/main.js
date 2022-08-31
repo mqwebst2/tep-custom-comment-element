@@ -1,6 +1,4 @@
-import Component from "./component.js";
-import "./components/comment.js";
-
+import Comment from "./components/comment.js";
 import { store } from "./store.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -13,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    const date = new Date();
+    const date = new Date().toLocaleString();
 
     store.set("name", name.value);
     store.set("email", email.value);
@@ -32,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const output = document.querySelector("#output");
 
-  const list = new Component();
+  const list = new Comment();
 
   list.render(output);
 });
