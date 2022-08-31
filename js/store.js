@@ -21,9 +21,6 @@ export class Store {
           commentItem = await db.get("comments", i);
           this.commentList.push(commentItem);
         }
-        console.log(this.commentList);
-        console.log(this.commentItem);
-        console.log(commentItem);
       }
     });
 
@@ -73,8 +70,6 @@ export class Store {
 
       await db.put("comments", this.commentItem);
     });
-
-    console.log(this.commentItem);
   }
 }
 
