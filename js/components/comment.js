@@ -37,8 +37,6 @@ export default class Comment {
 
         element.querySelectorAll(".comment-del").forEach((button, index) => {
           button.addEventListener("click", () => {
-            alert(index);
-
             a.splice(index, 1);
 
             database.then(async (db) => {
