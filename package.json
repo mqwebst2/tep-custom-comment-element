@@ -10,9 +10,23 @@
   },
   "devDependencies": {
     "eslint": "^8.20.0",
-    "vite": "^3.0.0"
+    "vite": "^3.0.0",
+    "vite-plugin-pwa": "^0.12.7"
   },
   "dependencies": {
     "idb": "^7.0.2"
-  }
+  },
+  "main": "vite.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mqwebst2/tep-custom-comment-element.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mqwebst2/tep-custom-comment-element/issues"
+  },
+  "homepage": "https://github.com/mqwebst2/tep-custom-comment-element#readme",
+  "description": ""
 }

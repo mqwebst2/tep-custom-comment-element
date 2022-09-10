@@ -14,59 +14,65 @@ export default class Comment {
 
     const printComment = () => {
       commentList.then((a) => {
+        const emptyTemp = `<p class="no-items">No comments have been left yet :(</p>`;
+        const commentTemp = `
+        <ul class="comment-items">
+          ${a
+            .map((item) => {
+              return `
+            <li class="comment-response"><button class="comment-del" aria-label="Delete this item">x</button>
+            <p class="comment-name">Name: ${item[0]}</p>
+            <p class="comment-name">Email: ${item[1]}</p>
+            <p class="comment-name">Comment: ${item[2]}</p>
+            <p class="comment-name">Date: ${item[3]}</p>
+            </li>
+            `;
+            })
+            .join("")}
+        </ul>
+        `;
+
         if (a.length === 0) {
-          element.innerHTML = `<p class="no-items">No comments have been left yet :(</p>`;
+          element.innerHTML = emptyTemp;
         } else {
-          element.innerHTML = `
-          <ul class="comment-items">
-            ${a
-              .map((item) => {
-                return `
-              <li class="comment-response"><button class="comment-del" aria-label="Delete this item">x</button>
-              <p class="comment-name">Name: ${item[0]}</p>
-              <p class="comment-name">Email: ${item[1]}</p>
-              <p class="comment-name">Comment: ${item[2]}</p>
-              <p class="comment-name">Date: ${item[3]}</p>
-              </li>
-              `;
-              })
-              .join("")}
-          </ul>
-          `;
+          element.innerHTML = commentTemp;
         }
 
         element.querySelectorAll(".comment-del").forEach((button, index) => {
           button.addEventListener("click", () => {
-            a.splice(index, 1);
+            console.log(index);
 
-            database.then(async (db) => {
-              this.db = db;
+            // a.splice(index, 1);
 
-              const key = await db.getAllKeys("comments");
+            // database.then(async (db) => {
+            //   this.db = db;
 
-              await db.delete("comments", key[index]);
-            });
+            //   const key = await db.getAllKeys("comments");
+            //   console.log(key[index]);
 
-            if (a.length === 0) {
-              element.innerHTML = `<p class="no-items">No comments have been left yet :(</p>`;
-            } else {
-              element.innerHTML = `
-              <ul class="comment-items">
-                ${a
-                  .map((item) => {
-                    return `
-                  <li class="comment-response"><button class="comment-del" aria-label="Delete this item">x</button>
-                  <p class="comment-name">Name: ${item[0]}</p>
-                  <p class="comment-name">Email: ${item[1]}</p>
-                  <p class="comment-name">Comment: ${item[2]}</p>
-                  <p class="comment-name">Date: ${item[3]}</p>
-                  </li>
-                  `;
-                  })
-                  .join("")}
-              </ul>
-              `;
-            }
+            //   await db.delete("comments", key[index]);
+            // });
+
+            // if (a.length === 0) {
+            //   element.innerHTML = emptyTemp;
+            // } else {
+            //   element.innerHTML = `
+            //   <ul class="comment-items">
+            //     ${a
+            //       .map((item) => {
+            //         return `
+            //       <li class="comment-response"><button class="comment-del" aria-label="Delete this item">x</button>
+            //       <p class="comment-name">Name: ${item[0]}</p>
+            //       <p class="comment-name">Email: ${item[1]}</p>
+            //       <p class="comment-name">Comment: ${item[2]}</p>
+            //       <p class="comment-name">Date: ${item[3]}</p>
+            //       </li>
+            //       `;
+            //       })
+            //       .join("")}
+            //   </ul>
+            //   `;
+            // }
           });
         });
       });

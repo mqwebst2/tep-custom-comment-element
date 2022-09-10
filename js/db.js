@@ -8,14 +8,3 @@ export const database = openDB("comment-store", 1, {
     });
   },
 });
-
-// export async function addComment(name, email, comment, date) {
-//   await (
-//     await database
-//   ).add("comments", {
-//     name: name,
-//     email: email,
-//     comment: comment,
-//     date: date,
-//   });
-// }
