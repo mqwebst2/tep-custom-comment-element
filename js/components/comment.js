@@ -1,52 +1,83 @@
-import { store } from "../store.js";
+import { database } from "../db.js";
 
-class NewComment extends HTMLElement {
-  constructor() {
-    super();
+export default class Comment {
+  constructor() {}
 
-    const shadow = this.attachShadow({ mode: "open" });
-    const template = document
-      .getElementById("comment-response")
-      .content.cloneNode(true);
+  render(element) {
+    const commentList = database.then(async (db) => {
+      this.db = db;
 
-    shadow.append(template);
+      const comments = await db.getAll("comments");
 
-    this.name = this.shadowRoot.querySelector(".comment-name");
-    this.email = this.shadowRoot.querySelector(".comment-email");
-    this.text = this.shadowRoot.querySelector(".comment-text");
-    this.date = this.shadowRoot.querySelector(".comment-date");
-  }
-
-  static get observedAttributes() {
-    return ["name", "email", "comment", "date"];
-  }
-
-  attributeChangedCallback(property, oldValue, newValue) {
-    if (oldValue === newValue) return;
-    if (property === "name" && this.name) {
-      this.name.textContent = newValue;
-    }
-    if (property === "email" && this.email) {
-      this.email.textContent = newValue;
-    }
-    if (property === "comment" && this.text) {
-      this.text.textContent = newValue;
-    }
-    if (property === "date" && this.date) {
-      this.date.textContent = newValue;
-    }
-  }
-
-  connectedCallback() {
-    store.subscribe((current) => {
-      this.setAttribute("name", current.name);
-      this.setAttribute("email", current.email);
-      this.setAttribute("comment", current.comment);
-      this.setAttribute("date", current.date);
+      return comments;
     });
-  }
-}
 
-if (customElements.get("new-comment") === undefined) {
-  customElements.define("new-comment", NewComment);
+    const printComment = () => {
+      commentList.then((a) => {
+        const emptyTemp = `<p class="no-items">No comments have been left yet :(</p>`;
+        const commentTemp = `
+        <ul class="comment-items">
+          ${a
+            .map((item) => {
+              return `
+            <li class="comment-response"><button class="comment-del" aria-label="Delete this item">x</button>
+            <p class="comment-name">Name: ${item[0]}</p>
+            <p class="comment-name">Email: ${item[1]}</p>
+            <p class="comment-name">Comment: ${item[2]}</p>
+            <p class="comment-name">Date: ${item[3]}</p>
+            </li>
+            `;
+            })
+            .join("")}
+        </ul>
+        `;
+
+        if (a.length === 0) {
+          element.innerHTML = emptyTemp;
+        } else {
+          element.innerHTML = commentTemp;
+        }
+
+        element.querySelectorAll(".comment-del").forEach((button, index) => {
+          button.addEventListener("click", () => {
+            console.log(index);
+
+            // a.splice(index, 1);
+
+            // database.then(async (db) => {
+            //   this.db = db;
+
+            //   const key = await db.getAllKeys("comments");
+            //   console.log(key[index]);
+
+            //   await db.delete("comments", key[index]);
+            // });
+
+            // if (a.length === 0) {
+            //   element.innerHTML = emptyTemp;
+            // } else {
+            //   element.innerHTML = `
+            //   <ul class="comment-items">
+            //     ${a
+            //       .map((item) => {
+            //         return `
+            //       <li class="comment-response"><button class="comment-del" aria-label="Delete this item">x</button>
+            //       <p class="comment-name">Name: ${item[0]}</p>
+            //       <p class="comment-name">Email: ${item[1]}</p>
+            //       <p class="comment-name">Comment: ${item[2]}</p>
+            //       <p class="comment-name">Date: ${item[3]}</p>
+            //       </li>
+            //       `;
+            //       })
+            //       .join("")}
+            //   </ul>
+            //   `;
+            // }
+          });
+        });
+      });
+    };
+
+    printComment();
+  }
 }
